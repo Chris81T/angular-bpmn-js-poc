@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Plain BPMN Viewer</title>
+    <script src="node_modules/bpmn-js/dist/bpmn-viewer.development.js"></script>
+</head>
+<body>
+
+    <h1>Viewer</h1>
+    <section style="background-color: aquamarine; width: 100%; height: 500px; padding: 20px" id="viewer">
+
+    </section>
+
+    <style>
+
+        .my-style:not(.djs-connection) .djs-visual > :nth-child(1) {
+            stroke: rgba(170, 120, 21, 0.9) !important;
+        }
+
+    </style>
+
+    <script type="application/javascript">
+
+        console.log('Init tiny app...');
+
+        var bpmnViewer = new BpmnJS({
+           container: '#viewer'
+        });
+
+        var xhr=new XMLHttpRequest();
+        xhr.onload=function(){
+            //console.log(xhr.responseText);
+            handleFile(xhr.responseText);
+        }
+        xhr.open("GET","http://localhost:63342/plain-bpmnjs-sample/assets/diagram.bpmn");
+        xhr.send();
+
+        function handleFile(bpmnText) {
+            console.log('Handle bpmnText...');
+
+            bpmnViewer.importXML(bpmnText, function(error) {
+                if (error) {
+                    console.error('Could not import BPMN! ', error);
+                } else {
+
+                    console.log(': ) - Rock it....');
+
+                    var canvas = bpmnViewer.get('canvas');
+                    var overlays = bpmnViewer.get('overlays');
+
+                    // zoom to fit full viewport
+                    canvas.zoom('fit-viewport');
+
+                    // attach an overlay to a node
+                    overlays.add('Task_auto', 'note', {
+                        position: {
+                            bottom: 0,
+                            right: 0
+                        },
+                        html: '<div class="diagram-note">Mixed up the labels?</div>'
+                    });
+                    // add marker
+                    canvas.addMarker('Task_auto', 'my-style');
+
+                }
+
+            })
+
+        }
+
+    </script>
+
+</body>
+</html>
