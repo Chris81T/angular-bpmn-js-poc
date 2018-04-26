@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {Viewer} from '../bpmn-js';
-import {Modeler} from '../bpmn-js';
+import {Viewer} from 'bpmn-js/lib/Viewer.js';
 
 @Component({
   selector: 'bpmn-viewer',
@@ -17,6 +16,9 @@ export class BpmnViewerComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    console.log('Viewer = ', Viewer);
+
     this.bpmnViewer = new Viewer({
       container: '#viewer'
     });
