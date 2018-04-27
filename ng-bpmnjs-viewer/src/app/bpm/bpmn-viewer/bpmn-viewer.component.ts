@@ -16,11 +16,8 @@ export class BpmnViewerComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    console.log('Viewer = ', Viewer);
-
     this.bpmnViewer = new Viewer({
-      container: '#viewer'
+      container: '#bpmn-viewer'
     });
   }
 
