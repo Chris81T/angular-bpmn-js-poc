@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {Viewer} from 'bpmn-js/lib/Viewer.js';
+import Viewer from 'bpmn-js/lib/Viewer';
 
 @Component({
   selector: 'bpmn-viewer',
