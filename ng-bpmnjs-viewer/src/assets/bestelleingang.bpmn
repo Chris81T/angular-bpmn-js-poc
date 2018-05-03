@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.10.0">
+  <bpmn:collaboration id="Collaboration_0o4rdk3">
+    <bpmn:participant id="Participant_0pbqb4o" processRef="Process_1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_1" isExecutable="true">
+    <bpmn:laneSet>
+      <bpmn:lane id="Lane_0pzd6yz" name="System">
+        <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_InformCustomer</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CheckStock</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CreateBill</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1fshf8h" name="Mitarbeiter">
+        <bpmn:flowNodeRef>EndEvent_079olqh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ProductsCheckout</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CreateProducts</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:sequenceFlow id="SequenceFlow_0blm3m7" sourceRef="StartEvent_1" targetRef="Task_CreateBill" />
+    <bpmn:sequenceFlow id="SequenceFlow_0x290io" sourceRef="Task_CreateBill" targetRef="Task_CheckStock" />
+    <bpmn:sequenceFlow id="SequenceFlow_15mpjlq" sourceRef="Task_CheckStock" targetRef="Task_CreateProducts" />
+    <bpmn:sequenceFlow id="SequenceFlow_1hp2bnf" sourceRef="Task_CreateProducts" targetRef="Task_InformCustomer" />
+    <bpmn:sequenceFlow id="SequenceFlow_0wlh3ft" sourceRef="Task_InformCustomer" targetRef="Task_ProductsCheckout" />
+    <bpmn:sequenceFlow id="SequenceFlow_1m7d492" sourceRef="Task_ProductsCheckout" targetRef="EndEvent_079olqh" />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0blm3m7</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_079olqh">
+      <bpmn:incoming>SequenceFlow_1m7d492</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:manualTask id="Task_ProductsCheckout" name="Waren zum Versand bringen">
+      <bpmn:incoming>SequenceFlow_0wlh3ft</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1m7d492</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:userTask id="Task_CreateProducts" name="Noch fehlende Waren erstellen">
+      <bpmn:incoming>SequenceFlow_15mpjlq</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1hp2bnf</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_InformCustomer" name="Kunde bzgl. Versandvorbereitung informieren">
+      <bpmn:incoming>SequenceFlow_1hp2bnf</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0wlh3ft</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_CheckStock" name="Warenbestand prüfen">
+      <bpmn:incoming>SequenceFlow_0x290io</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_15mpjlq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_CreateBill" name="Rechnung erstellen">
+      <bpmn:incoming>SequenceFlow_0blm3m7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0x290io</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0o4rdk3">
+      <bpmndi:BPMNShape id="Participant_0pbqb4o_di" bpmnElement="Participant_0pbqb4o">
+        <dc:Bounds x="111" y="-5" width="1216" height="370" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="191" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="164" y="138" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_079olqh_di" bpmnElement="EndEvent_079olqh">
+        <dc:Bounds x="1267" y="271" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1285" y="311" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0blm3m7_di" bpmnElement="SequenceFlow_0blm3m7">
+        <di:waypoint xsi:type="dc:Point" x="227" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="284" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="255.5" y="99" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0x290io_di" bpmnElement="SequenceFlow_0x290io">
+        <di:waypoint xsi:type="dc:Point" x="384" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="462" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="423" y="99" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_15mpjlq_di" bpmnElement="SequenceFlow_15mpjlq">
+        <di:waypoint xsi:type="dc:Point" x="562" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="610" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="610" y="289" />
+        <di:waypoint xsi:type="dc:Point" x="657" y="289" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="625" y="198.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hp2bnf_di" bpmnElement="SequenceFlow_1hp2bnf">
+        <di:waypoint xsi:type="dc:Point" x="757" y="289" />
+        <di:waypoint xsi:type="dc:Point" x="803" y="289" />
+        <di:waypoint xsi:type="dc:Point" x="803" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="849" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="818" y="198.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0wlh3ft_di" bpmnElement="SequenceFlow_0wlh3ft">
+        <di:waypoint xsi:type="dc:Point" x="949" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="1001" y="120" />
+        <di:waypoint xsi:type="dc:Point" x="1001" y="289" />
+        <di:waypoint xsi:type="dc:Point" x="1053" y="289" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1016" y="198.5" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1m7d492_di" bpmnElement="SequenceFlow_1m7d492">
+        <di:waypoint xsi:type="dc:Point" x="1153" y="289" />
+        <di:waypoint xsi:type="dc:Point" x="1212" y="289" />
+        <di:waypoint xsi:type="dc:Point" x="1212" y="289" />
+        <di:waypoint xsi:type="dc:Point" x="1267" y="289" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1227" y="283" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_0pzd6yz_di" bpmnElement="Lane_0pzd6yz">
+        <dc:Bounds x="141" y="-5" width="1186" height="221" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1fshf8h_di" bpmnElement="Lane_1fshf8h">
+        <dc:Bounds x="141" y="216" width="1186" height="149" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ManualTask_1fp1cu7_di" bpmnElement="Task_ProductsCheckout">
+        <dc:Bounds x="1053" y="249" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0kaeoi4_di" bpmnElement="Task_CreateProducts">
+        <dc:Bounds x="657" y="249" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_07ymvja_di" bpmnElement="Task_InformCustomer">
+        <dc:Bounds x="849" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0d9j9bc_di" bpmnElement="Task_CheckStock">
+        <dc:Bounds x="462" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0z1ftp7_di" bpmnElement="Task_CreateBill">
+        <dc:Bounds x="284" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

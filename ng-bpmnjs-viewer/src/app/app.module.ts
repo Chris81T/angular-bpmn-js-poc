@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import {BpmModule} from './bpm/bpm.module';
@@ -12,7 +12,8 @@ import {BpmModule} from './bpm/bpm.module';
   ],
   imports: [
     BrowserModule,
-    BpmModule
+    BpmModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
